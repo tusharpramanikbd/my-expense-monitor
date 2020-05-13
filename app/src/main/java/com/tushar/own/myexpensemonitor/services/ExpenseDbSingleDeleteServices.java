@@ -2,7 +2,6 @@ package com.tushar.own.myexpensemonitor.services;
 
 import com.tushar.own.myexpensemonitor.database.AppDatabase;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBDeleteEventListener;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBUpdateEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 
 import java.util.ArrayList;

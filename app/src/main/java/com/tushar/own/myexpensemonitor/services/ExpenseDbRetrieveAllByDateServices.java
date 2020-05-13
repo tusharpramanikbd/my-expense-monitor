@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 
 import com.tushar.own.myexpensemonitor.database.AppDatabase;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByDateEventListener;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 
 import java.util.ArrayList;

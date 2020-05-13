@@ -4,12 +4,9 @@ import com.tushar.own.myexpensemonitor.database.AppDatabase;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBAdditionEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 
-import org.reactivestreams.Subscription;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

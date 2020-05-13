@@ -1,5 +1,7 @@
 package com.tushar.own.myexpensemonitor.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.tushar.own.myexpensemonitor.R;
+import com.tushar.own.myexpensemonitor.activities.MainActivity;
 import com.tushar.own.myexpensemonitor.listeners.AddExpenseButtonClickListener;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBAdditionEventListener;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentDateEventListener;
@@ -34,8 +37,17 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
         ExpenseLocalDBRetrieveAllByCurrentDateEventListener,
         SettingsChangedListener {
 
-    private AppCompatTextView tvCurrentDate, tvTotalExpense, tvExpenseCurrency;
-    private AppCompatImageButton ibAddExpense;
+    private AppCompatTextView tvTotalExpense;
+    private AppCompatTextView tvExpenseCurrency;
+    private Context context;
+    private Activity activity;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+        activity = (MainActivity)context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +82,8 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
     }
 
     private void initializeUI(View view) {
-        tvCurrentDate = view.findViewById(R.id.tvCurrentDate);
-        ibAddExpense = view.findViewById(R.id.ibAddExpense);
+        AppCompatTextView tvCurrentDate = view.findViewById(R.id.tvCurrentDate);
+        AppCompatImageButton ibAddExpense = view.findViewById(R.id.ibAddExpense);
         tvTotalExpense = view.findViewById(R.id.tvTotalExpense);
         tvExpenseCurrency = view.findViewById(R.id.tvExpenseCurrency);
 
@@ -87,8 +99,8 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
                     double dailyExpenseLimit = Double.parseDouble(SharedPreferenceServices.getInstance().getExpenseLimit());
                     double savedTotalAmount = Double.parseDouble(SharedPreferenceServices.getInstance().getTotalAmountFromSharedPreference());
                     if (savedTotalAmount >= dailyExpenseLimit){
-                        tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
-                        tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
+                        tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
+                        tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
                     }
                 }
             }
@@ -103,10 +115,9 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
         ibAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyAlertDialog.showAddExpenseAlertDialog(getContext(), getActivity(), new AddExpenseButtonClickListener() {
+                MyAlertDialog.showAddExpenseAlertDialog(context, activity, new AddExpenseButtonClickListener() {
                     @Override
                     public void onAddExpenseButtonClicked(double amount, String category, String details) {
-                        //Toast.makeText(getContext(), "Clicked", Toast.LENGTH_SHORT).show();
                         ExpenseModel expenseModel = new ExpenseModel(amount,
                                 category,
                                 details,
@@ -123,12 +134,12 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
 
     @Override
     public void expenseAddedSuccessfully() {
-        Toasty.success(getContext(), "Expense Added Successfully!", Toast.LENGTH_SHORT, true).show();
+        Toasty.success(context, "Expense Added Successfully!", Toast.LENGTH_SHORT, true).show();
     }
 
     @Override
     public void expenseAdditionFailure() {
-        Toasty.error(getContext(), "Expense Addition Failed!", Toast.LENGTH_SHORT, true).show();
+        Toasty.error(context, "Expense Addition Failed!", Toast.LENGTH_SHORT, true).show();
 
     }
 
@@ -146,18 +157,18 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
             if (SharedPreferenceServices.getInstance().getExpenseLimit() != null){
                 double dailyExpenseLimit = Double.parseDouble(SharedPreferenceServices.getInstance().getExpenseLimit());
                 if (totalExpense >= dailyExpenseLimit){
-                    tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
-                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
+                    tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
+                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
                 }
                 else {
-                    tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
-                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
+                    tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
+                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
                 }
             }
         }
         else {
-            tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
-            tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
+            tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
+            tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
         }
 
     }
@@ -174,18 +185,18 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
                 double dailyExpenseLimit = Double.parseDouble(SharedPreferenceServices.getInstance().getExpenseLimit());
                 double savedTotalAmount = Double.parseDouble(SharedPreferenceServices.getInstance().getTotalAmountFromSharedPreference());
                 if (savedTotalAmount >= dailyExpenseLimit){
-                    tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
-                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextRed));
+                    tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
+                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextRed));
                 }
                 else {
-                    tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
-                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
+                    tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
+                    tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
                 }
             }
         }
         else {
-            tvTotalExpense.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
-            tvExpenseCurrency.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDefault));
+            tvTotalExpense.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
+            tvExpenseCurrency.setTextColor(ContextCompat.getColor(context, R.color.colorTextDefault));
         }
 
         tvExpenseCurrency.setText(SharedPreferenceServices.getInstance().getExpenseCurrency());

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +18,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tushar.own.myexpensemonitor.R;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentMonthEventListener;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentYearEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 import com.tushar.own.myexpensemonitor.services.DateAndTimeServices;
-import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentMonthServices;
 import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentYearServices;
 import com.tushar.own.myexpensemonitor.services.ViewPagerPageChangedServices;
 import com.tushar.own.myexpensemonitor.utils.MyValueFormatter;
@@ -38,8 +35,8 @@ public class YearlyExpenseChartFragment extends Fragment implements
 
     private BarChart barChartYearlyExpense;
     private float[] myYAxis = new float[12];
-    double monthlyTotalExpense, maxMonthlyExpense = 0.0;
-    String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    private double maxMonthlyExpense = 0.0;
+    private String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
     @Nullable
     @Override
@@ -97,7 +94,7 @@ public class YearlyExpenseChartFragment extends Fragment implements
 
     }
 
-    public ArrayList<String> getAreaCount(){
+    private ArrayList<String> getAreaCount(){
 
         return new ArrayList<>(Arrays.asList(months));
     }
@@ -119,14 +116,14 @@ public class YearlyExpenseChartFragment extends Fragment implements
     @Override
     public void expenseGetByYearSuccessfully(List<ExpenseModel> expenseModels) {
         for (int i = 1; i <= 12; i++){
-            monthlyTotalExpense = 0.0;
+            double monthlyTotalExpense = 0.0;
             for (int j = 0; j < expenseModels.size(); j++){
                 if (months[i-1].equals(expenseModels.get(j).getExpenseDate().substring(3, 6))){
                     monthlyTotalExpense = monthlyTotalExpense + expenseModels.get(j).getExpenseAmount();
                 }
             }
 
-            myYAxis[i-1] = (float)monthlyTotalExpense;
+            myYAxis[i-1] = (float) monthlyTotalExpense;
 
             if (monthlyTotalExpense > maxMonthlyExpense){
                 maxMonthlyExpense = monthlyTotalExpense;
@@ -139,13 +136,11 @@ public class YearlyExpenseChartFragment extends Fragment implements
 
     @Override
     public void expenseGetByYearFailed() {
-        //Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+        myYAxis = new float[12];
     }
 
     @Override
     public void onPageViewPagerChanged() {
         initializeBarChart();
-        //barChartDailyExpense.notifyDataSetChanged();
-        //barChartDailyExpense.invalidate();
     }
 }

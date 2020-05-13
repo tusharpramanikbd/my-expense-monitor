@@ -3,7 +3,6 @@ package com.tushar.own.myexpensemonitor.services;
 import android.annotation.SuppressLint;
 
 import com.tushar.own.myexpensemonitor.database.AppDatabase;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentDateEventListener;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentMonthEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 

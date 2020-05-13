@@ -1,7 +1,5 @@
 package com.tushar.own.myexpensemonitor.services;
 
-import com.tushar.own.myexpensemonitor.listeners.SettingsChangedListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class ViewPagerPageChangedServices {
     }
 
     public interface ViewPagerPageChangeListener{
-        public void onPageViewPagerChanged();
+        void onPageViewPagerChanged();
     }
 
     public void AddViewPagerPageChangedEventDoneListener(ViewPagerPageChangeListener listener){

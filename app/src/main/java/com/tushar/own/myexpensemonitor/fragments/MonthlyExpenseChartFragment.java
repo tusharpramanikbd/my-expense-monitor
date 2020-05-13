@@ -1,11 +1,9 @@
 package com.tushar.own.myexpensemonitor.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,27 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tushar.own.myexpensemonitor.R;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentDateEventListener;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentMonthEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 import com.tushar.own.myexpensemonitor.services.DateAndTimeServices;
-import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentDateServices;
 import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentMonthServices;
 import com.tushar.own.myexpensemonitor.services.ViewPagerPageChangedServices;
 import com.tushar.own.myexpensemonitor.utils.MyValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +32,7 @@ public class MonthlyExpenseChartFragment extends Fragment implements
 
     private BarChart barChartDailyExpense;
     private float[] myYAxis = new float[31];
-    double dailyTotalExpense, maxDailyExpense = 0.0;
+    private double maxDailyExpense = 0.0;
 
     @Nullable
     @Override
@@ -114,14 +103,14 @@ public class MonthlyExpenseChartFragment extends Fragment implements
     public void expenseGetByMonthSuccessfully(List<ExpenseModel> expenseModels) {
 
         for (int i = 1; i <= 31; i++){
-            dailyTotalExpense = 0.0;
+            double dailyTotalExpense = 0.0;
             for (int j = 0; j < expenseModels.size(); j++){
                 if (i == Integer.parseInt(expenseModels.get(j).getExpenseDate().substring(0, 2))){
                     dailyTotalExpense = dailyTotalExpense + expenseModels.get(j).getExpenseAmount();
                 }
             }
 
-            myYAxis[i-1] = (float)dailyTotalExpense;
+            myYAxis[i-1] = (float) dailyTotalExpense;
 
             if (dailyTotalExpense > maxDailyExpense){
                 maxDailyExpense = dailyTotalExpense;
@@ -134,13 +123,12 @@ public class MonthlyExpenseChartFragment extends Fragment implements
 
     @Override
     public void expenseGetByMonthFailed() {
-        //Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+        myYAxis = new float[31];
     }
 
     @Override
     public void onPageViewPagerChanged() {
         initializeBarChart();
-        //barChartDailyExpense.notifyDataSetChanged();
-        //barChartDailyExpense.invalidate();
+
     }
 }

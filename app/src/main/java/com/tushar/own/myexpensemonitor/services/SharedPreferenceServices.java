@@ -1,22 +1,8 @@
 package com.tushar.own.myexpensemonitor.services;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.tushar.own.myexpensemonitor.R;
-import com.tushar.own.myexpensemonitor.database.AppDatabase;
-import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllEventListener;
-import com.tushar.own.myexpensemonitor.models.ExpenseModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class SharedPreferenceServices {
 

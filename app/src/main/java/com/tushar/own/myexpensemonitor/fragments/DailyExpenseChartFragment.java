@@ -1,18 +1,13 @@
 package com.tushar.own.myexpensemonitor.fragments;
 
-import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -21,20 +16,15 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.tushar.own.myexpensemonitor.R;
 import com.tushar.own.myexpensemonitor.listeners.ExpenseLocalDBRetrieveAllByCurrentDateEventListener;
 import com.tushar.own.myexpensemonitor.models.ExpenseModel;
 import com.tushar.own.myexpensemonitor.services.DateAndTimeServices;
 import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentDateServices;
-import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByCurrentMonthServices;
-import com.tushar.own.myexpensemonitor.services.ExpenseDbRetrieveAllByDateServices;
 import com.tushar.own.myexpensemonitor.services.ViewPagerPageChangedServices;
 import com.tushar.own.myexpensemonitor.utils.MyValueFormatter;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DailyExpenseChartFragment extends Fragment implements
@@ -43,7 +33,6 @@ public class DailyExpenseChartFragment extends Fragment implements
 
     private PieChart pieChart;
     //Declaring & Initializing X & Y data for PieChart
-    private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f, 30.5f, 17.3f, 5.7f};
     private String[] xData = {"Housing", "Transportation", "Food", "Utilities",
             "Clothing", "Medical", "Household Items",
             "Education", "Entertainment", "Misc"};

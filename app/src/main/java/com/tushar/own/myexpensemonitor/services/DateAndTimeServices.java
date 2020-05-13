@@ -1,9 +1,5 @@
 package com.tushar.own.myexpensemonitor.services;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,7 +58,7 @@ public class DateAndTimeServices {
         String [] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 
-        return day + "-" + months[monthOfYear] + "-" + String.valueOf(year);
+        return day + "-" + months[monthOfYear] + "-" + year;
 
     }
 
