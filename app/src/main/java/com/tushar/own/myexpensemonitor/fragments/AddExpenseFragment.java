@@ -28,6 +28,8 @@ import com.tushar.own.myexpensemonitor.utils.MyAlertDialog;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditionEventListener,
         ExpenseLocalDBRetrieveAllByCurrentDateEventListener,
         SettingsChangedListener {
@@ -121,12 +123,13 @@ public class AddExpenseFragment extends Fragment implements ExpenseLocalDBAdditi
 
     @Override
     public void expenseAddedSuccessfully() {
-        Toast.makeText(getContext(), "Expense Addition Successful", Toast.LENGTH_SHORT).show();
+        Toasty.success(getContext(), "Expense Added Successfully!", Toast.LENGTH_SHORT, true).show();
     }
 
     @Override
     public void expenseAdditionFailure() {
-        Toast.makeText(getContext(), "Expense Addition Failed", Toast.LENGTH_SHORT).show();
+        Toasty.error(getContext(), "Expense Addition Failed!", Toast.LENGTH_SHORT, true).show();
+
     }
 
     @Override

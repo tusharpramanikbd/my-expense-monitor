@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -21,6 +22,8 @@ import com.tushar.own.myexpensemonitor.services.ExpenseDbSingleUpdateServices;
 import com.tushar.own.myexpensemonitor.utils.MyAlertDialog;
 
 import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 
 public class ExpenseItemListAdapter extends RecyclerView.Adapter<ExpenseItemListAdapter.ExpenseItemListViewHolder> {
 
@@ -69,11 +72,14 @@ public class ExpenseItemListAdapter extends RecyclerView.Adapter<ExpenseItemList
                                                 expenseModelArrayList.get(position).getExpenseDate(),
                                                 expenseModelArrayList.get(position).getExpenseTime());
                                         ExpenseDbSingleUpdateServices.getInstance().updateSingleExpense(expenseModel);
+                                        Toasty.success(mContext, "Expense Updated Successfully!", Toast.LENGTH_SHORT, true).show();
+
                                     }
                                 });
                                 return true;
                             case R.id.item_delete:
                                 ExpenseDbSingleDeleteServices.getInstance().deleteSingleExpense(expenseModelArrayList.get(position));
+                                Toasty.success(mContext, "Expense Deleted Successfully!", Toast.LENGTH_SHORT, true).show();
                                 return true;
                         }
                         return false;
